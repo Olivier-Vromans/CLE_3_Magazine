@@ -40,7 +40,7 @@ function init(){
     //Fetch all Animes
     getAnime();
 
-    //Get the Backgrounf
+    //Get the Background
     document.body.style.backgroundImage = `url(${backgroundURL})`;
 }
 
@@ -116,7 +116,7 @@ function addCard(serie, index){
 
     //Get the image and putting it in the CardDive
     const img = document.createElement("img");
-    // Gey the image source
+    // Get the image source
     img.src = serie.image
     //Append image to the cardsDiv
     cardDive.appendChild(img);
