@@ -25,6 +25,9 @@ let animename;
 const webserviceURL = './webservice/index.php';
 let detailsUrl;
 
+const myAnimeList = "https://api.jikan.moe/v3/user/Drunkmonkeybom7/animelist"
+const descriptionAnime = "https://api.jikan.moe/v3/anime/"
+
 //URL for fetching Quotes by Anime Name
 let quoteURL = 'https://animechan.vercel.app/api/quotes/anime?title='
 let allQuotes;
@@ -38,16 +41,14 @@ function init(){
     }
 
     //Fetch all Animes
-    getAnime();
+    fetchAnime()
 
     //Get the Background
     document.body.style.backgroundImage = `url(${backgroundURL})`;
 }
 
-//Fetch the Anime by the WebserviceURL
-function getAnime()
-{
-    fetch(webserviceURL)
+function fetchAnime(){
+    fetch(myAnimeList)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(response.statusText);
@@ -56,11 +57,12 @@ function getAnime()
         })
         .then(getAnimeSuccessHandler)
         .catch(getAnimeErrorHandler);
+
 }
 
 function getAnimeSuccessHandler(data){
     //fetched series to object
-    getSeries = data;
+    getSeries = data.anime;
     //fill the cards with the series
     addCards();
 
@@ -96,11 +98,12 @@ function addCards() {
     for (let i = 0; i < getSeries.length; i++){
         addCard(getSeries[i], i)
     }
+    console.log(getSeries);
 }
 
 function getAnimeErrorHandler(data){
     //Log the error when Anime can't be fetched
-    console.log(data);
+    console.log(data)
 }
 
 //function to create cards
@@ -117,14 +120,14 @@ function addCard(serie, index){
     //Get the image and putting it in the CardDive
     const img = document.createElement("img");
     // Get the image source
-    img.src = serie.image
+    img.src = serie.image_url
     //Append image to the cardsDiv
     cardDive.appendChild(img);
 
     // Adding the title of the Anime to the CardDive
     const nameDiv = document.createElement("div");
-    // nameDiv.innerHTML = serie.name.substring(0,20);  // Title is only 20 characters
-    nameDiv.innerText = serie.name                      // Title is fully displayed
+    nameDiv.innerHTML = serie.title.substring(0,20);  // Title is only 20 characters
+    // nameDiv.innerText = serie.title                      // Title is fully displayed
     //Append nameDiv to the cardsDiv
     cardDive.appendChild(nameDiv)
 
@@ -197,13 +200,14 @@ function detailsDiv(e) {
     // Checking of the Click is from the button Details
     if (e.target.className == "button details"){
         //Make a temp number to search the array
-        animenumber = e.target.dataset.index
+        animenumber = e.target.dataset.index - 1
         console.log("details is Clicked!!")
         //Add the ID of the anime to the url
-        detailsUrl = webserviceURL + "?id=" + animenumber;
+        detailsUrl = descriptionAnime + getSeries[animenumber].mal_id;
+        console.log(detailsUrl);
 
         //Get the anime name -1 to correct because it was 1 of
-        animename = getSeries[animenumber - 1].name
+        animename = getSeries[animenumber].title
         //get the quote by adding the Anime Name to the URL
         quoteURL = quoteURL + animename
 
@@ -232,18 +236,27 @@ function getAnimeDetails()
 
 
 function inputAnimeDetails(data){
+    console.log(data);
     // Finding the description paragraph
     descriptionDiv = document.getElementById("description")
     // Adding description to the paragraph
-    descriptionDiv.innerText = data.description
+    descriptionDiv.innerText = data.synopsis
     // Finding the genre paragraph
     genreDiv = document.getElementById("genre")
     // Adding genre to the paragraph
-    genreDiv.innerText = data.genre
+    let genreString = ""
+    for(let genre of data.genres){
+        genreString += genre.name + ", "
+    }
+    genreString = genreString.substring(0, genreString.length - 2)
+    console.log(genreString);
+    genreDiv.innerText = genreString
+    window.location.href = "#details"
 }
 
 //Fetch the Quote of the Anime by the quoteURL
 function fetchQuote(){
+    console.log(quoteURL);
     fetch(quoteURL)
         .then((response) => {
             if (!response.ok) {
