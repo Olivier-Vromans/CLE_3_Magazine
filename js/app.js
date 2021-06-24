@@ -110,10 +110,32 @@ function getAnimeErrorHandler(data){
 function addCard(serie, index){
     //Making the div and adding it to the CardsContainer
     const cardDive = document.createElement("div");
+    //Set class of watched/watching/not watched
+    if(serie.watching_status === 2){
+        console.log(`${serie.title}: Watched`);
+        cardDive.classList.add("watched")
+    } else if(serie.watching_status === 1){
+        console.log(`${serie.title}: Watching`);
+        cardDive.classList.add("watching")
+    } else if(serie.watching_status === 6){
+        console.log(`${serie.title}: Not watched`);
+        cardDive.classList.add("notWatched")
+    } else if(serie.watching_status === 3){
+        console.log(`${serie.title}: onHold`);
+        cardDive.classList.add("onHold")
+    } else{
+        console.log(`${serie.title}: ${serie.watching_status}`);
+    }
+
+
+    console.log(serie.watching_status);
+
     //Add card to the class list
     cardDive.classList.add("card");
+
     //Add a dataset with value from the FOR Loop
     cardDive.dataset.index = index;
+
     //Append cardDive to the cardsDiv
     cardsContainer.appendChild(cardDive);
 

@@ -34,6 +34,42 @@ div {
     grid-row-gap: 15px;
 }
 
+.watched{
+    background-image: url("../images/done.png");
+    background-size: 12%;
+    background-position-x: 95%;
+    background-position-y: 65%;
+    background-repeat: no-repeat;
+}
+.watching{
+    background-image: url("../images/watching.png");
+    background-size: 15%;
+    background-position-x: 95%;
+    background-position-y: 65%;
+    background-repeat: no-repeat;
+}
+.notWatched{
+    background-image: url("../images/bookmark.png");
+    background-size: 10%;
+    background-position-x: 95%;
+    background-position-y: 65%;
+    background-repeat: no-repeat;
+}
+.onHold{
+    background-image: url("../images/pause.png");
+    background-size: 10%;
+    background-position-x: 95%;
+    background-position-y: 65%;
+    background-repeat: no-repeat;
+}
+.dropped{
+    background-image: url("../images/trash.png");
+    background-size: 10%;
+    background-position-x: 95%;
+    background-position-y: 65%;
+    background-repeat: no-repeat;
+}
+
 .card {
     height: 500px;
     background-color: white;
@@ -86,24 +122,3 @@ div {
     margin: 5px auto;
 
 }
-
-/* bonus
-
-
-.animated-card {
-    opacity: 0;
-    animation: drop-in 1s ease-out 1 forwards;
-}
-
-@keyframes drop-in {
-    0% {
-        transform: translate(20px, 120px) rotate3d(1, 1, 1, 50deg);
-        opacity: 0;
-    }
-    100% {
-        transform: translate(0, 0) rotate3d(1, 1, 1, 0deg);
-        opacity: 1;
-    }
-}
-
-*/
