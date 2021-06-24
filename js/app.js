@@ -98,7 +98,6 @@ function addCards() {
     for (let i = 0; i < getSeries.length; i++){
         addCard(getSeries[i], i)
     }
-    console.log(getSeries);
 }
 
 function getAnimeErrorHandler(data){
@@ -112,24 +111,16 @@ function addCard(serie, index){
     const cardDive = document.createElement("div");
     //Set class of watched/watching/not watched
     if(serie.watching_status === 2){
-        console.log(`${serie.title}: Watched`);
         cardDive.classList.add("watched")
     } else if(serie.watching_status === 1){
-        console.log(`${serie.title}: Watching`);
         cardDive.classList.add("watching")
     } else if(serie.watching_status === 6){
-        console.log(`${serie.title}: Not watched`);
         cardDive.classList.add("notWatched")
     } else if(serie.watching_status === 3){
-        console.log(`${serie.title}: onHold`);
         cardDive.classList.add("onHold")
     } else{
         console.log(`${serie.title}: ${serie.watching_status}`);
     }
-
-
-    console.log(serie.watching_status);
-
     //Add card to the class list
     cardDive.classList.add("card");
 
@@ -190,7 +181,6 @@ function favoriteButton(e) {
         let cardclass = cardsclass[e.target.dataset.index]
         let changeValue = temp[e.target.dataset.index];
 
-        console.log(changeValue)
         //Delete from Favorites
         if (favoriteAnimes.includes(animeName)) {
             //Search for anime index by name
@@ -226,7 +216,6 @@ function detailsDiv(e) {
         console.log("details is Clicked!!")
         //Add the ID of the anime to the url
         detailsUrl = descriptionAnime + getSeries[animenumber].mal_id;
-        console.log(detailsUrl);
 
         //Get the anime name -1 to correct because it was 1 of
         animename = getSeries[animenumber].title
@@ -258,7 +247,6 @@ function getAnimeDetails()
 
 
 function inputAnimeDetails(data){
-    console.log(data);
     // Finding the description paragraph
     descriptionDiv = document.getElementById("description")
     // Adding description to the paragraph
@@ -271,14 +259,12 @@ function inputAnimeDetails(data){
         genreString += genre.name + ", "
     }
     genreString = genreString.substring(0, genreString.length - 2)
-    console.log(genreString);
     genreDiv.innerText = genreString
     window.location.href = "#details"
 }
 
 //Fetch the Quote of the Anime by the quoteURL
 function fetchQuote(){
-    console.log(quoteURL);
     fetch(quoteURL)
         .then((response) => {
             if (!response.ok) {
