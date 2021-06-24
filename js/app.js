@@ -80,7 +80,7 @@ function getAnimeSuccessHandler(data){
         favoriteAnimes = storedData
         for (let i = 0; i < storedData.length; i++){
             // Find the index number of Anime in the Anime object
-            let index = getSeries.findIndex(item => item.name === storedData[i]);
+            let index = getSeries.findIndex(item => item.title === storedData[i]);
 
             // Get the Div of the Animes in localstorage by using the index
             let favoriteClass = document.getElementById("cards").getElementsByClassName("card")[index]
@@ -174,7 +174,7 @@ function favoriteButton(e) {
     // Checking of the Click is from the button Favorite
     if (e.target.className == "button favorite") {
         // get name of Anime by id
-        let animeName = getSeries[e.target.dataset.index].name
+        let animeName = getSeries[e.target.dataset.index].title
         //Search by ID for cardsDiv
         const cardDive = document.getElementById("cards");
         //Get the right cardDiv
